@@ -1,21 +1,14 @@
-import express, { Application, type Request, type Response, type NextFunction } from "express";
+import express, { Application} from "express";
+import mainRouter from "./router";
+
 
 const app: Application = express();
 
+app.use(express.json()); 
 
-// all the routes has to be mounted
-app.get('/v1', (req: Request, res: Response, next: NextFunction) => {
-    res.json({
-        message:"ok",
-        success: "true",
-        data: "ok",
-        meta: null
-    })
+//router
+app.use(mainRouter)
 
-})
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("<h1 >Hello World </h1>");
-});
 
 export default app;
