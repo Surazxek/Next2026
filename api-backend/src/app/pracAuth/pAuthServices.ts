@@ -1,39 +1,35 @@
 import { UserDto } from "./pDTO";
 
-interface User {
+interface User extends UserDto {
   id: number;
-  name: string;
-  email: string;
 }
 
 class AuthService {
-    private users: User[] = [];
-    private id = 1;
+  private users: User[] = [];
+  private id = 1;
 
-    register(userData: UserDto) {
-        const existinguser = this.users.find(
-            (user) => user.email === userData.email
-        );
+  register(userData: UserDto) {
+    const existinguser = this.users.find(
+      (user) => user.email === userData.email,
+    );
 
-        if(existinguser) {
-            throw new Error ("User already registered")
-        }
-
-        const newUser = {
-            id: this.id++,
-            ...userData
-        }
-
-        this.users.push(newUser)
-        return newUser
-
+    if (existinguser) {
+      throw new Error("User already registered");
     }
 
- getAllUsers() {
-    console.log(this.users)
-    return this.users
- }
+    const newUser = {
+      id: this.id++,
+      ...userData,
+    };
 
+    this.users.push(newUser);
+    return newUser;
+  }
+
+  getAllUsers(): User[] {
+    console.log(this.users);
+    return this.users;
+  }
 }
 
-export const pAuthServices = new AuthService()
+export const pAuthServices = new AuthService();
