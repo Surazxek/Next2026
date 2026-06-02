@@ -55,4 +55,10 @@
 
 
 # Express Middleware
- -
+ -// to manipulate the incoming request
+// to respond to client
+// to call next middleware
+// app.use((req, res, next) => {
+//   console.log("I am always called");
+//   next();
+// });
