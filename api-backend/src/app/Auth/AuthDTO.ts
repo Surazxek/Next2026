@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const RegisterUserDTO = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters").max(30),
+  name: z.string().min(4, "Name must be at least 2 characters").max(30),
   email: z.string().nonempty().email("Invalid email address"),
   username: z.string()
     .nonempty()
