@@ -2,6 +2,7 @@ import express, { Application } from "express";
 import mainRouter from "./router";
 import errorHandler from "./app/middleware/Error-handlerMiddleware";
 import path from "path";
+import "./app/config/mongodb";
 
 const app: Application = express();
 

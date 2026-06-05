@@ -10,10 +10,26 @@ const errorHandler = (
   req: Request,
   res: Response,
   next: NextFunction)=> {
+  console.error(error)
   let code = error.code || 500;
   let detail = error.detail || error.details || null;
   let msg = error.message || "Internal Server Error";
 
+
+  //mongoTODO error
+  if (error.name === "MongoServerError") {
+    code= 400;
+    detail = {}
+    if(+error.code === 11000){
+      //unique handling failed
+      Object.keys(error["keyPattern"]).map((key) =>{
+        detail[key] = `${key} should be unique`
+      })
+
+    }
+      
+      
+  }
   res.status(code).json({
     error: detail,
     message: msg,
