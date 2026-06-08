@@ -13,11 +13,14 @@ authRouter.post(
   bodyValidator(RegisterUserDTO),
   authController.authRegister,
 );
+
 authRouter.post(
   "/login",
   bodyValidator(LoginDTO),
-  authCheck(),
   authController.authLogin,
 );
+
+
+authRouter.get('/me', authCheck(), authController.authgetMyProfile)
 
 export default authRouter;
