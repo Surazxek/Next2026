@@ -2,9 +2,13 @@ import express, { Application } from "express";
 import mainRouter from "./router";
 import errorHandler from "./app/middleware/Error-handlerMiddleware";
 import path from "path";
+import cors from "cors"
 import "./app/config/mongodb";
 
 const app: Application = express();
+
+app.use(cors())
+
 
 // Data parsing middleware
 app.use(express.json({limit: "5mb"}));

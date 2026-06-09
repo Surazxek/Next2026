@@ -53,6 +53,8 @@ class AuthController {
 
       res.json({
         data: { accessToken },
+        message: "Login successs",
+        meta: null
       });
     } catch (exception) {
       next(exception);

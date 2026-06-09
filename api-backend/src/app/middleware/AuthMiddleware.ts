@@ -23,7 +23,7 @@ const authCheck = () => {
 
       token = token.replace("Bearer ", "");
 
-      console.log("TOKEN:", token);
+      // console.log("TOKEN:", token);
 
       const data = jwt.verify(
         token,

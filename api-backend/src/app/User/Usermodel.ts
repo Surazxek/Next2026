@@ -1,15 +1,5 @@
 import mongoose from "mongoose";
-
-export const ImageSchema = new mongoose.Schema({
-  fieldname: String,
-  originalname: String,
-  encoding: String,
-  mimetype: String,
-  destination: String,
-  filename: String,
-  path: String,
-  size: Number,
-});
+import { ImageSchema } from "../Common/Schema";
 
 const UserSchema = new mongoose.Schema(
   {
