@@ -62,12 +62,12 @@ export const Header= () => {
                 </Link>
               </li>
               {
-                loggedInUser && loggedInUser.firstName ? <li>
+                loggedInUser && loggedInUser.name ? <li>
                 <Link
                   className="text-amber-50 text-xl font-semibold hover:underline hover:text-amber-300 shadow-lg bg-teal-700 px-10 text-center p-2 rounded-md "
                   href={"/cms"}
                 >
-                  {`${loggedInUser?.firstName} ${loggedInUser?.lastName}`}
+                  {`${loggedInUser?.name}`}
                 </Link>
               </li> : <li>
                 <Link

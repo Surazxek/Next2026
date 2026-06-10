@@ -5,6 +5,7 @@ import {Roboto, Roboto_Mono} from "next/font/google"
 import { Header } from "@/components/header/header";
 import { Footer } from "@/components/footer/footer";
 import AuthProvider from "@/lib/provider/AuthProvider";
+import { Toaster } from "react-hot-toast";
 
 
 
@@ -32,6 +33,7 @@ export default function RootLayout({
         <AuthProvider>
         <Header />
         {children}
+        <Toaster position="bottom-right" />
         
         <Footer />
 

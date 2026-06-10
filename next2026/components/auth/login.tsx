@@ -2,9 +2,10 @@
 
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { LoginSchema, type Icredentials } from "@/lib/type/AuthType";
+import { IUserDetail, LoginSchema, type Icredentials } from "@/lib/type/AuthType";
 import { useAuth } from "@/lib/hook/useAuth";
 import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 export default function LoginForm() {
   const {
@@ -28,12 +29,23 @@ export default function LoginForm() {
     try {
       // const response = await login(data);
       // // console.log(response); // to check data
-       await login(data)
-       router.push("/cms")
+       const userDetail = await login(data) as IUserDetail
 
-    } catch (error) {
-      console.error("Login submit failed", error);
-    }
+    console.log("USER DETAIL:", userDetail);
+      //  router.push("/cms")
+      // router.push(`${userDetail.role}`)
+       toast.success("Login successful");
+
+      router.push(userDetail.role === "admin" ? "/cms" : "/user");
+
+     } catch (error: any) {
+    toast.error(
+      error?.response?.data?.message ||
+      "Invalid username or password"
+    );
+
+    console.error("Login submit failed", error);
+  }
   };
 
   return (

@@ -12,9 +12,10 @@ export type Icredentials = z.infer<typeof LoginSchema>;
 
 export interface IUserDetail{
     id: string,
-    firstName: string,
-    lastName: string,
+    firstName?: string,
+    lastName?: string,
     middleName?: string,
+    name: string,
     email: string,
     image: string,
     role: string,

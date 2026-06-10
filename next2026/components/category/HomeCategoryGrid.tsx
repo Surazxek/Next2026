@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { AppConfig } from "@/lib/config/AppConfig";
 import Link from "next/link";
 import { useEffect, useState } from "react";
@@ -17,7 +17,12 @@ export default function HomeCategoryGrid() {
   const getAllCategories = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${AppConfig.baseUrl}products/categories`);
+      const baseUrl = AppConfig.baseUrl;
+      if (!baseUrl) {
+        throw new Error("No API base URL configured");
+      }
+
+      const response = await fetch(`${baseUrl}/products/categories`);
       if (!response.ok) throw new Error("Failed to fetch categories");
       const data = await response.json();
       const sliced8 = data.toSorted(() => Math.random() - 0.5).slice(0, 8);
@@ -47,9 +52,7 @@ export default function HomeCategoryGrid() {
           <p className="text-center text-gray-500">Loading categories...</p>
         )}
 
-        {error && (
-          <p className="text-center text-red-600">{error}</p>
-        )}
+        {error && <p className="text-center text-red-600">{error}</p>}
 
         {!loading && !error && (
           <ul className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-8 sm:gap-6 gap-4">
@@ -59,7 +62,7 @@ export default function HomeCategoryGrid() {
                   href={`/category/${row.slug}`}
                   className="block bg-gray-100 p-3 rounded-lg cursor-pointer group overflow-hidden relative z-50 hover:before:bg-black focus-visible:before:bg-black before:absolute before:inset-0 before:opacity-20 before:transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
                 >
-                  <div className="w-full aspect-[4/5] overflow-hidden mx-auto">
+                  <div className="w-full aspect-4/5 overflow-hidden mx-auto">
                     {/* <img
                       src={row.image}
                       alt={row.name}
