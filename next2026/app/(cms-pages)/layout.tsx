@@ -5,6 +5,7 @@ import { Metadata } from "next";
 import { CMSHeader } from "@/components/header/CMSHeader";
 import { CMSSidebar } from "@/components/CMSSidebar/CMSSidebar";
 import AuthProvider from "@/lib/provider/AuthProvider";
+import { Toaster } from "sonner";
 
 
 
@@ -36,6 +37,7 @@ export default function CMSLayout({children}: Readonly<{children: ReactNode}>) {
             <CMSSidebar />
             <section className="w-4/5 bg-gray-200 p-5 rounded-lg m-5">
               {children}
+              <Toaster richColors closeButton />
             </section>
           </div>
         </section>

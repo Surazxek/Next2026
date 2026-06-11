@@ -5,6 +5,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormLabel } from "../ui/form/Label";
 import { FileInput, SelectInput, TextInput } from "../ui/form/Input";
 import { FormActionButton } from "../ui/buttons/FormButtons";
+import { toast } from "sonner";
+import axiosInstance from "@/lib/config/apiClient";
+
+import { useRouter } from "next/navigation";
 
 const CategoryDTO = z.object({
     name: z.string().min(3, "Min char min 3 ").max(50, "Max Char is 50 "),
@@ -24,9 +28,27 @@ export const CategoryCreateForm = () => {
         resolver: zodResolver(CategoryDTO)
     })
   
-   const submitForm = (data: CategoryData) => {
-     console.log(data)
-   }
+    const router = useRouter()
+
+   const submitForm = async (data: CategoryData) => {
+  try {
+    await axiosInstance.post(
+      "/category",
+      data,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      }
+    );
+
+    toast.success("Category Created Successfully");
+
+    router.push("/cms/categories");
+  } catch (exception) {
+    toast.error("Error while creating Category");
+  }
+};
 
 
     return(<>
