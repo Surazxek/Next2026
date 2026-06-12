@@ -1,11 +1,7 @@
-
-
 "use client";
 import { ReactNode, useEffect, useState } from "react";
 import AuthContext from "../context/AuthContext";
 import { Icredentials, IUserDetail } from "../type/AuthType";
-import { AppConfig } from "../config/AppConfig";
-import axios from "axios";
 import axiosInstance from "../config/apiClient";
 import Cookies from "js-cookie";
 

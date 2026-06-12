@@ -10,6 +10,9 @@ const axiosInstance = axios.create({
   responseType: "json",
   headers: {
     "Content-Type": "application/json",
+    "Cache-Control": "no-cache",
+    Pragma: "no-cache",
+    Expires: "0",
   },
 });
 

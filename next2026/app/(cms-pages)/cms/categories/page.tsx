@@ -1,4 +1,10 @@
+import CategoryTable from "@/components/category/CategoryTable";
+import { Metadata } from "next";
 import Link from "next/link";
+
+export const metada:Metadata = {
+  title: "Category Listing || Admin Pannel"
+}
 
 export default function CMSCategoryPage() {
   return (
@@ -14,7 +20,10 @@ export default function CMSCategoryPage() {
           Add Category
         </Link>
       </div>
+
+      <div className="w-full flex">
+      <CategoryTable />
+      </div>
     </section>
   );
 }
-

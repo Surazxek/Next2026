@@ -18,6 +18,8 @@ export default function CMSCreateCategoryPage() {
         <div className="w-full ">
            <CategoryCreateForm />
         </div>
+
+        
     </section>
   );
 }

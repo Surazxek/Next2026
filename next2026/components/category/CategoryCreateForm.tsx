@@ -7,8 +7,9 @@ import { FileInput, SelectInput, TextInput } from "../ui/form/Input";
 import { FormActionButton } from "../ui/buttons/FormButtons";
 import { toast } from "sonner";
 import axiosInstance from "@/lib/config/apiClient";
-
 import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { ICategoryDetail } from "./CategoryTable";
 
 const CategoryDTO = z.object({
     name: z.string().min(3, "Min char min 3 ").max(50, "Max Char is 50 "),
@@ -19,6 +20,8 @@ const CategoryDTO = z.object({
 type CategoryData = z.infer<typeof CategoryDTO>
 
 export const CategoryCreateForm = () => {
+  const [parentCats, setParentCats] = useState<Array<{label: string, value: string}>>()
+
     const {control, handleSubmit, formState:{errors, isSubmitting} } =useForm({
         defaultValues: {
             name: "",
@@ -29,6 +32,21 @@ export const CategoryCreateForm = () => {
     })
   
     const router = useRouter()
+
+    const getAllCategories = async () =>{
+      try {
+        const response = await axiosInstance.get("/category/get-all-parents") as unknown as {data: Array<ICategoryDetail>}
+        console.log(response)
+        const catRes =  response.data.map((cat:ICategoryDetail) => {
+          return {label: cat.name, value: cat._id}
+        })
+        setParentCats(catRes)
+      } catch (exception) {
+        console.log(exception)
+        
+      }
+
+    }
 
    const submitForm = async (data: CategoryData) => {
   try {
@@ -50,6 +68,12 @@ export const CategoryCreateForm = () => {
   }
 };
 
+useEffect (() => {
+  return () => {
+    getAllCategories()
+  }
+}, [])
+
 
     return(<>
     <form onSubmit={handleSubmit(submitForm)} className="flex flex-col gap-2" >
@@ -65,7 +89,7 @@ export const CategoryCreateForm = () => {
         <div className="flex w-full items-center">
         <FormLabel className="w-1/3" htmlFor="parentId"> Sub Category</FormLabel>
         <div className="w-2/3 flex flex-col">
-           <SelectInput name="parentId" control={control} options={[]} errMsg={errors?.parentId?.message} />
+           <SelectInput name="parentId" control={control} options={parentCats as []} errMsg={errors?.parentId?.message} />
         </div>
       </div>
 
